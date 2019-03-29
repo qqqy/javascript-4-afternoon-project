@@ -30,7 +30,18 @@
 */
 
 //Code Here
+class Employee {
+  constructor(first_name , last_name , email , age){
+    this.first_name = first_name,
+    this.last_name = last_name,
+    this.email = email,
+    this.age = age
+  }
 
+  makeWidget(){
+    return `${this.first_name} ${this.last_name} Widget`
+  }
+}
 
 ////////// PROBLEM 2 //////////
 
@@ -48,7 +59,36 @@
 */
 
 //Code Here
-
+class Manager extends Employee{
+  constructor(first_name , last_name , email , age){
+    super(first_name , last_name , email , age)
+    this.reports = []
+  }
+  hire(emp){
+    if(emp){this.reports.push(emp)}
+    const empCount = this.reports.length
+    if(empCount <= 0){
+      this.title = "Not a manager"
+    } else if (empCount > 0 && empCount < 4){
+      this.title = "Barely Manager"
+    } else if (empCount > 3 && empCount < 11){
+      this.title = "Mostly Manager"
+    } else if (empCount > 10 && empCount < 51){
+      this.title = "Manager"
+    } else if (empCount > 50 && empCount < 101){
+      this.title = "Manager Plus"
+    } else {
+      this.title = "Bestest Manager"
+    }
+  }
+  fire(i){
+    this.reports.splice(i, 1)
+    // if(typeof this.bonus !== undefined){
+      this.bonus += 100
+    // }
+    this.hire()
+  }
+}
 
 ////////// PROBLEM 3 //////////
 
@@ -72,7 +112,13 @@
 */
 
 //Code Here
-
+class ProgressiveManager extends Manager{
+  constructor(first_name, last_name , email , age){
+    super(first_name , last_name , email , age)
+    this.title = 'Not a manager', 
+    this.bonus = 0
+  }
+}
 
 
 ////////// PROBLEM 4 - Black Diamond //////////
@@ -99,5 +145,24 @@
 */
 
 //Code Here
-
+class Machine{
+  constructor(){
+    this.widgets_made_count = 0
+    this.wear_and_tear_count = 0
+    this.needs_reboot = false
+  }
+  makeWidgets(num){
+    this.widgets_made_count += num
+    this.wear_and_tear_count = this.widgets_made_count / 50
+  }
+  fixMachine(){
+    this.needs_reboot = true
+  }
+  reboot(){
+    return ()=>{
+      this.wear_and_tear_count -= 10
+      this.needs_reboot = false
+    }
+  }
+}
 
